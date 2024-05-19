@@ -1,4 +1,7 @@
 package form;
+import com.mysql.jdbc.Connection;
+import table.Users;
+import util.DBConnect;
 import util.RegexValidator;
 
 import javax.swing.*;
@@ -137,6 +140,8 @@ public class SignForm extends JFrame {
             this.add(text);
         }
         JButton signBtn=new JButton("注册");
+        DBConnect db=new DBConnect();
+        Users users=new Users((Connection) db.getConnection());
         signBtn.addActionListener(new SignListener(
                 this,
                 userField,

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class Users {
     private List<User> users=new ArrayList<User>();
     private Connection conn;
@@ -39,7 +38,7 @@ public class Users {
                 String email=rs.getString("email");
                 String phone=rs.getString("phone");
                 String address=rs.getString("address");
-                User user=new User(userId,username,password,fullName,email,phone,address);
+                User user=new User(username,password,fullName,email,phone,address);
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -47,9 +46,20 @@ public class Users {
         }
         setCount();
     }
-    public void addUser(User user){
-        String sql="insert into users values(?,?,?,?,?,?)";
+    public void addUser(User user) throws SQLException {
 
+        String sql="select max(user_id) as uuz from users";
+        PreparedStatement statement= (PreparedStatement)conn .prepareStatement(sql);
+        ResultSet rs=statement.executeQuery();
+        rs.next();
+        int userId=rs.getInt("uuz")+1;
+        Date d=new Date();
+        java.sql.Date date=new java.sql.Date(d.getTime());
+        String sql2="insert into users values("+userId+",'"+user.getUsername()+"','"+user.getPassword()+
+                "','"+user.getFull_name()+"','"+user.getEmail()+"','"+user.getPhone()+"','"+user.getAddress()
+                +"','"+  date    +"','"+user.getRole()+"')";
+        PreparedStatement statement2= (PreparedStatement) conn .prepareStatement(sql2);
+        statement2.executeUpdate();
     }
     public void updateUser(User user){
 

@@ -62,6 +62,7 @@ public class LoginForm extends JFrame{
 
         LoginListener l1=new LoginListener(this,userText,pwdText);
         logBtn.addActionListener(l1);
+
         resetBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

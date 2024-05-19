@@ -2,7 +2,14 @@ package form;
 
 import javax.swing.*;
 import java.awt.event.*;
+
+import com.mysql.jdbc.Connection;
+import table.User;
+import table.Users;
+import util.DBConnect;
 import util.RegexValidator;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class SignListener implements ActionListener {
@@ -15,6 +22,8 @@ public class SignListener implements ActionListener {
     private JTextField phoneField;
     private JTextField addressField;
     private JFrame signForm;
+
+    private DBConnect dbConnect=new DBConnect();
 
     private List<JLabel> descList;
     private ImageIcon falseIcon;
@@ -93,7 +102,7 @@ public class SignListener implements ActionListener {
             descList.get(5).setIcon(trueIcon);
             descList.get(5).setVisible(true);
         }
-        if (!(addressField.getText().trim()=="")) {
+        if ((addressField.getText().trim()!="")) {
             allValid = false;
             descList.get(6).setIcon(falseIcon);
             descList.get(6).setVisible(true);
@@ -104,6 +113,21 @@ public class SignListener implements ActionListener {
 
 
         if (allValid) {
+            User user = new User(
+                    userField.getText().trim(),
+                    pwdField.getText().trim(),
+                    nameField.getText().trim(),
+                    emailField.getText().trim(),
+                    phoneField.getText().trim(),
+                    addressField.getText().trim()
+            );
+            Users users=new Users((Connection) dbConnect.getConnection());
+            try {
+                users.addUser(user);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                throw new RuntimeException(ex);
+            }
             JOptionPane.showMessageDialog(signForm, "注册成功！");
         } else {
             JOptionPane.showMessageDialog(signForm, "请确保所有输入都符合要求。", "注册失败", JOptionPane.ERROR_MESSAGE);

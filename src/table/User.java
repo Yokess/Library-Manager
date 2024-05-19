@@ -3,7 +3,7 @@ package table;
 import java.util.Date;
 
 public class User {
-    private int user_id;
+//    private int user_id;
     private String username;
     private String password;
     private String full_name;
@@ -11,22 +11,25 @@ public class User {
     private String phone;
     private String address;
     private enum role{
-        ADMIN,USER
+        admin,user
     }
     private Date membership;
     private role role;
-    public User(int user_id, String username, String password, String full_name, String email, String phone, String address) {
-        this.user_id = user_id;
+    public User( String username, String password, String full_name, String email, String phone, String address) {
+//        this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.full_name = full_name;
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.role = role.USER;
+        this.role = role.user;
 
     }
-
+    public String getRole()
+    {
+        return this.role.name();
+    }
     public String getUsername() {
         return username;
     }
