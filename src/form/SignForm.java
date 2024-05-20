@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.List;
 
 public class SignForm extends JFrame {
-    public RegexValidator regexValidator = new RegexValidator();
+
 
     public SignForm(){
         super();
@@ -35,9 +35,9 @@ public class SignForm extends JFrame {
         trueIcon.setImage(trueIcon.getImage().getScaledInstance(30, 30, 100));
 
 
-        List<JLabel> labels = new ArrayList<JLabel>();
+        List<JLabel> labels = new ArrayList<>();
         List<JTextField> texts=new ArrayList<>();
-        List<JLabel> descList=new ArrayList<JLabel>();
+        List<JLabel> descList=new ArrayList<>();
         JLabel userDesc = new JLabel("用户名3-16个字符");
         descList.add(userDesc);
         JLabel pwdDesc = new JLabel("8-16个字符，需包括字母大小写两种");
@@ -164,22 +164,22 @@ public class SignForm extends JFrame {
         String txt = text.getText().trim();
         switch (index) {
             case 0:
-                flag = regexValidator.isUsername(txt);
+                flag = RegexValidator.isUsername(txt);
                 break;
             case 1:
-                flag = regexValidator.isPassword(txt);
+                flag = RegexValidator.isPassword(txt);
                 break;
             case 2:
-                flag = regexValidator.isPassword(txt) && txt.equals(texts.get(1).getText().trim());
+                flag = RegexValidator.isPassword(txt) && txt.equals(texts.get(1).getText().trim());
                 break;
             case 3:
-                flag = regexValidator.isUsername(txt);
+                flag = RegexValidator.isUsername(txt);
                 break;
             case 4:
-                flag = regexValidator.isEmail(txt);
+                flag = RegexValidator.isEmail(txt);
                 break;
             case 5:
-                flag = regexValidator.isPhone(txt);
+                flag = RegexValidator.isPhone(txt);
             case 6:
                 flag = !txt.equals("");
             // 添加其他判断
