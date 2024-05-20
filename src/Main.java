@@ -1,5 +1,6 @@
 import com.mysql.jdbc.Connection;
 import form.LoginForm;
+import form.ManagerForm;
 import table.Books;
 import util.DBConnect;
 
@@ -12,6 +13,7 @@ public class Main {
         bookList.printBooks();
 
         new LoginForm();
+        new ManagerForm();
         myDB.disconnect();
     }
 }
